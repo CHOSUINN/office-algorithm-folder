@@ -16,41 +16,44 @@ public class Test1 {
         for (int t = 0; t < testCase; t++) {
 
             int n = sc.nextInt();
-            boardLen = n + 1;
+            boardLen = n;
             int m = sc.nextInt();
-            board = new int[boardLen][boardLen];
+            board = new int[n + 1][n + 1];
 
             //오셀로 초기 세팅
-            board[boardLen/2][boardLen/2] = 2;
-            board[boardLen/2][boardLen/2 + 1] = 1;
-            board[boardLen/2 + 1][boardLen/2] = 1;
-            board[boardLen/2 + 1][boardLen/2 + 1] = 2;
+            int mid = n / 2;
+            board[mid][mid] = 2;
+            board[mid + 1][mid + 1] = 2;
+            board[mid][mid + 1] = 1;
+            board[mid + 1][mid] = 1;
 
             // 돌을 놓는 횟수.
             for (int i = 0; i < m; i++) {
-                int x = sc.nextInt();
                 int y = sc.nextInt();
+                int x = sc.nextInt();
                 int c = sc.nextInt();
 
                 board[x][y] = c;
 
                 turnStoneColour(x, y, c);
 
-                // 보드 출력
-                for (int k = 1; k < boardLen; k++) {
-                    for (int p = 1; p < boardLen; p++) {
-                        System.out.printf("%d ", board[k][p]);
-                    }
-                    System.out.println();
-                }
-                System.out.println("========");
+//                // 보드 출력
+//                System.out.println(y + " " + x + " " + c);
+//                System.out.println("========");
+//                for (int k = 1; k <= boardLen; k++) {
+//                    for (int p = 1; p <= boardLen; p++) {
+//                        System.out.printf("%d ", board[k][p]);
+//                    }
+//                    System.out.println();
+//                }
+//                System.out.println("========");
             }
 
             int black = 0;
             int white = 0;
             // 돌 숫자 세기
-            for (int i = 1; i < boardLen; i++) {
-                for (int j = 1; j < boardLen; j++) {
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= n; j++) {
                     if (board[i][j] == 1)
                         black++;
                     if (board[i][j] == 2)
@@ -71,10 +74,9 @@ public class Test1 {
             int ny = y + dy[i];
 
             // 상하좌우대각 상대방 돌이 아니면 continue
-            if (nx < 0 || nx >= boardLen) continue;
-            if (ny < 0 || ny >= boardLen) continue;
-            if (board[nx][ny] == c) continue;
+            if (!(nx >= 1 && nx <= boardLen && ny >= 1 && ny <= boardLen)) continue;
             if (board[nx][ny] == 0) continue;
+            if (board[nx][ny] == c) continue;
 
             int a = nx;
             int b = ny;
@@ -82,11 +84,11 @@ public class Test1 {
             // 나랑 같은 색 돌이 나올때까지 나아가보기.
             // 만약 나랑 같은 색 돌이 나오면 flag=true 그게 아니면 false로 둠
             boolean flag = false;
-            while (a >= 0 && a < boardLen && b >= 0 && b < boardLen) {
+            while (a >= 1 && a <= boardLen && b >= 1 && b <= boardLen) {
                 if (board[a][b] == c) {
                     flag = true;
                     break;
-                }
+                } else if (board[a][b] == 0) break;
                 a += dx[i];
                 b += dy[i];
             }
@@ -97,10 +99,7 @@ public class Test1 {
             // 나랑 같은 색 돌이 나왔으면
             // 해당 인덱스까지 돌의 색 바꾸기
             if (flag) {
-                while (tempx >= 0 && tempx < boardLen && tempy >= 0 && tempy < boardLen) {
-                    if (board[tempx][tempy] == c)
-                        break;
-
+                while (board[tempx][tempy] != c) {
                     board[tempx][tempy] = c;
                     tempx += dx[i];
                     tempy += dy[i];
