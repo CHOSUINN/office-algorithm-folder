@@ -52,7 +52,7 @@ public class Test2 {
 
                     }
 
-                    System.out.println(tempSum);
+//                    System.out.println(tempSum);
                     max = Math.max(max, tempSum);
                 }
             }

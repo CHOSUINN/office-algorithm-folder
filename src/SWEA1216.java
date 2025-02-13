@@ -8,7 +8,10 @@ public class SWEA1216 {
         for (int t = 0; t < 10; t++) {
 
             int num = Integer.parseInt(br.readLine());
-            String input = br.readLine();
+            String[] input = br.readLine().split("");
+
+
+
 
         }
 
