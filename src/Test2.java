@@ -31,9 +31,9 @@ public class Test2 {
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < m; j++) {
-                    int tempSum = arr[i][j];
+                    int tempSum = arr[i][j];    // 누적합
 
-                    int cnt = arr[i][j];
+                    int cnt = arr[i][j];        // 몇 칸만큼 가겠다
                     for (int k = 0; k < 4; k++)  {
 
                         int nx = i;
@@ -44,8 +44,8 @@ public class Test2 {
                             ny += dy[k];
 
                             if (nx < 0 || nx >= n) continue;
-                            if (ny < 0 || ny >= n) continue;
-                            tempSum+=arr[nx][ny];
+                            if (ny < 0 || ny >= m) continue;
+                            tempSum += arr[nx][ny];
 
                         }
 
