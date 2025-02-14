@@ -1,3 +1,5 @@
+package LiveClass;
+
 public class deltaSolving {
     
     // static을 통해 델타 선언을 많이 함!

@@ -1,3 +1,5 @@
+package FirstTest;
+
 import java.util.Scanner;
 
 // 오셀로 게임

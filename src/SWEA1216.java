@@ -18,24 +18,34 @@ public class SWEA1216 {
 
 
             for (int i = 0; i < 100; i++) {
-                for (int j = 0; j < 100; j++) {
-                    int lt = j;
-                    int rt = j + 1;
-                    int cnt = 2;
 
-                    while (lt >= 0 && rt < 100) {
-                        if (arr[lt] != arr[rt]) {
-                            break;
+                int lt = 0;
+                int rt = arr[i].length - 1;
+                int leftStart;
+                int rightStart;
+                while (lt < rt) {
+
+                    if (arr[i][lt] == arr[i][rt]) {
+                        leftStart = lt;
+                        rightStart = rt;
+                        int cnt = 0;
+                        boolean flag = true;
+                        while (leftStart <= rightStart) {
+                            if (arr[i][leftStart] != arr[i][rightStart]) {
+                                flag = false;
+                                break;
+                            }
+                            leftStart++;
+                            rightStart--;
                         }
-                        cnt += 2;
-                        lt--;
-                        rt++;
+                        if (flag)
+                            answer = findMax(answer, cnt);
                     }
 
-                    answer = findMax(cnt, answer);
+                    rt--;
 
                 }
-                System.out.println(answer);
+
             }
 
 //            for (char[] chars : arr) {
@@ -46,8 +56,7 @@ public class SWEA1216 {
 //            }
 
 
-
-
+            System.out.printf("#%d %d\n", t + 1, answer);
         }
 
     }

@@ -1,3 +1,5 @@
+package LiveClass;
+
 public class snailCircle {
 
     // 달팽이 순회 문제

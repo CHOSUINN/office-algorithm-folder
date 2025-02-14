@@ -1,3 +1,5 @@
+package FirstTest;
+
 import java.util.Scanner;
 
 // 풍선팡
