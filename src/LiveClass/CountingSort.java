@@ -11,7 +11,6 @@ public class CountingSort {
 
     }
 
-
     static void countingSort(int[] arr) {
         // 1. 가장 큰 값을 찾는다.(문제에 음수가 나오는경우 최저 값도 찾아야함)
         int k = -1;
