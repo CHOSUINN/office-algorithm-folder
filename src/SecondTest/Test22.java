@@ -1,63 +1,52 @@
 package SecondTest;
 
-import java.util.LinkedList;
-import java.util.Queue;
 import java.util.Scanner;
 
+// 러시아 국기 같은 깃발
 public class Test22 {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        char[][] arr;
-        int answer;
 
         int tc = Integer.parseInt(sc.nextLine());
-
+        int answer = Integer.MAX_VALUE;
 
         for (int t = 0; t < tc; t++) {
-            String[] input = sc.nextLine().split(" ");
-            int n = Integer.parseInt(input[0]);
-            int m = Integer.parseInt(input[1]);
 
-            answer = 0;
-            arr = new char[n][m];
+            String[] inputs = sc.nextLine().split(" ");
+            int n = Integer.parseInt(inputs[0]);
+            int m = Integer.parseInt(inputs[1]);
 
+            char[][] arr = new char[n][m];
             for (int i = 0; i < n; i++) {
-                char[] inputs = sc.nextLine().toCharArray();
-                for (int j = 0; j < m; j++) {
-                    arr[i][j] = inputs[j];
-                }
+                char[] input = sc.nextLine().toCharArray();
+                for (int j = 0; j < m; j++)
+                    arr[i][j] = input[j];
             }
 
-            // 첫, 마지막 줄부터 계산
-            for (int i = 0; i < m; i++) {
-                if (arr[0][i] != 'W') answer++;
-                if (arr[n - 1][i] != 'R') answer++;
-            }
+            for (int sep1 = 1; sep1 <= n - 1; sep1++) {
+                for (int sep2 = sep1 + 1; sep2 <= n - 1; sep2++) {
 
-
-            if (n > 3) {
-                int index = 1;
-                while (index < n - 2) {
+                    char curr = 'W';
 
                     int cnt = 0;
-                    int wCnt = 0;
-                    int bCnt = 0;
-                    int rCnt = 0;
-                    for (int i = 0; i < m; i++) {
-                        if (arr[index][i] == 'W') wCnt++;
-                        if (arr[index][i] == 'B') bCnt++;
-                        if (arr[index][i] == 'R') rCnt++;
+                    for (int i = 0; i < n; i++) {
+
+                        if (i == sep1 && curr == 'W')
+                            curr = 'B';
+                        else if (i == sep2 && curr == 'B')
+                            curr = 'R';
+
+                        for (int j = 0; j < m; j++) {
+                            if (arr[i][j] != curr)
+                                cnt++;
+                        }
                     }
-                    int temp = Math.max(wCnt, Math.max(bCnt, rCnt));
+                    answer = Math.min(answer, cnt);
                 }
-
-            } else {
-                for (int i = 0; i < m; i++)
-                    if (arr[1][i] != 'B') answer++;
             }
+            System.out.println(answer + "정답");
 
-
-            System.out.printf("#%d %d", t + 1, answer);
         }
 
     }

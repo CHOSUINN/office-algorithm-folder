@@ -31,14 +31,6 @@ public class Test1 {
                 }
             }
 
-            //테스트 출력
-//            for (char[] chars : answer) {
-//                for (char aChar : chars) {
-//                    System.out.print(aChar + " ");
-//                }
-//                System.out.println();
-//            }
-
             System.out.printf("#%d %s\n", t + 1, sb);
 
 
