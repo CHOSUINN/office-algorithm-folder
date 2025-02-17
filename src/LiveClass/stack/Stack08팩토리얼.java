@@ -1,4 +1,4 @@
-package LiveClass;
+package LiveClass.stack;
 
 public class Stack08팩토리얼 {
     public static void main(String[] args) {

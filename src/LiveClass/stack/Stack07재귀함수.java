@@ -1,4 +1,4 @@
-package LiveClass;
+package LiveClass.stack;
 
 public class Stack07재귀함수 {
 

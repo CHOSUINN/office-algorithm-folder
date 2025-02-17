@@ -1,4 +1,4 @@
-package LiveClass;
+package LiveClass.stack;
 
 import java.util.HashMap;
 import java.util.Map;

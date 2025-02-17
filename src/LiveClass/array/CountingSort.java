@@ -1,4 +1,4 @@
-package LiveClass;
+package LiveClass.array;
 
 import java.util.Arrays;
 
