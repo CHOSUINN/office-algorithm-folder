@@ -1,30 +1,33 @@
 import java.util.*;
-class Solution
+class Main
 {
-    final static Scanner sc = new Scanner(System.in);
+    static Queue<int[]> queue;
     public static void main(String args[]) throws Exception
     {
+        Scanner sc = new Scanner(System.in);
         int T = sc.nextInt();
-        for (int t=1;t<=T;t++) {
-            System.out.println("#" + t + " " + run());
-        }
-    }
-    private static String run() {
-        int n = sc.nextInt();
-        byte[][] arr = new byte[n][n];
-        long sum=0;
-        for (int i=0;i<n;i++) {
-            String str = sc.next();
-            for (int j=0;j<n;j++) {
-                arr[i][j] = (byte)Character.getNumericValue(str.charAt(j));
+        for (int t = 1; t <= T; t++) {
+            int n = sc.nextInt();
+            int p = sc.nextInt();
+            int[] first = new int[n];
+            int[] second = new int[n];
+            for (int x = 0; x < n; x++) {
+                int a = sc.nextInt();
+                first[x] = a;
             }
-        }
-        for (int i=0;i<n;i++) {
-            int diff = Math.min(i, n-i-1);
-            for (int j=n/2-diff;j<n/2+1+diff;j++) {
-                sum+=arr[i][j];
+            for (int x = 0; x < n; x++) {
+                int b = sc.nextInt();
+                second[x] = b;
             }
+            for (int i = 1; i < n; i++) {
+                int one = first[i-1] + first[i] - p;
+                int two = second[i-1] + first[i];
+                int three = second[i-1] + second[i] - p;
+                int four = first[i-1] + second[i];
+                first[i] = Math.max(one, two);
+                second[i] = Math.max(three, four);
+            }
+            System.out.printf("#%d %d\n", t, Math.max(first[n-1], second[n-1]));
         }
-        return String.valueOf(sum);
     }
 }
