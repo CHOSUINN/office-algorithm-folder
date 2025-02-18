@@ -1,4 +1,4 @@
-package LiveClass.linkedList;
+package LiveClass.linkedList.순차리스트;
 
 public class SequentialList {
     private String[] arr;

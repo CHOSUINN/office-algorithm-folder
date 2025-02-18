@@ -1,4 +1,4 @@
-// 쇠막대기 자르기
+package SWEA;// 쇠막대기 자르기
 
 import java.util.ArrayList;
 import java.util.List;
