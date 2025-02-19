@@ -27,33 +27,34 @@ public class SWEA1224 {
                 } else if (input[i] == '*') {
                     stack.push(input[i]);
                 } else if (input[i] == '+') {
-                    if (stack.peek() == '*') {
+                    if (!stack.isEmpty() &&stack.peek() == '*') {
                         sb.append(stack.pop());
                     }
                     stack.push(input[i]);
                 }
 
             }
+            System.out.println(sb);
 
             // 후위연산자 계산
+            Stack<Integer> s = new Stack<>();
             for (int i = 0; i < sb.length(); i++) {
                 if (sb.charAt(i) == '+') {
-                    int b = stack.pop();
-                    int a = stack.pop();
-                    stack.push((char) (a + b));
+                    int b = s.pop() - '0';
+                    int a = s.pop() - '0';
+                    s.push(a + b);
                 } else if (sb.charAt(i) == '*') {
-                    int b = stack.pop();
-                    int a = stack.pop();
-                    stack.push((char) (a * b));
+                    int b = s.pop() - '0';
+                    int a = s.pop() - '0';
+                    s.push(a * b);
                 } else {
-                    stack.push(sb.charAt(i));
+                    s.push(sb.charAt(i) - '0');
                 }
             }
-
-
+            int answer = s.pop();
 
             // 출력
-            System.out.printf("#%d %d\n", t + 1, sb);
+            System.out.printf("#%d %d\n", t + 1, answer);
             sb.setLength(0);
         }
 
