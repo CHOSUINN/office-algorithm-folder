@@ -1,3 +1,5 @@
+package SWEA;
+
 import java.util.Scanner;
 
 // 후위순회
@@ -6,7 +8,7 @@ public class SWEA1231 {
     static int[][] tree;
     static char[] val;
     static int n;
-    
+
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         for (int t = 0; t < 10; t++) {
