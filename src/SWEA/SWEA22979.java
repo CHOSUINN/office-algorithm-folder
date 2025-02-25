@@ -1,3 +1,5 @@
+package SWEA;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -25,24 +27,12 @@ public class SWEA22979 {
 
             int index = 0;
             for (int i = 0; i < k; i++) {
-                if (cnt[i] > 0) {
-                    int temp = index + cnt[i];
-                    index = temp % input.length;
-                } else if (cnt[i] < 0) {
-                    int temp = (index - Math.abs(cnt[i])) % input.length;
-                    if (index - Math.abs(temp) < 0) {
-                        index = index + input.length - temp;
-                    } else {
-                        index -= temp;
-                    }
-                }
+                index = (index + cnt[i]) % input.length;
+                if (index < 0) index += input.length;
             }
 
-            for (int i = 0; i < input.length; i++) {
-                if (index >= input.length)
-                    index = 0;
-                sb.append(input[index++]);
-            }
+            for (int i = 0; i < input.length; i++)
+                sb.append(input[(index + i) % input.length]);
             System.out.println(sb);
             sb.setLength(0);
         }

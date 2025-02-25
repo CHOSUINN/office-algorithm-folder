@@ -1,10 +1,18 @@
+package BOJ;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.*;
 
 // 나의 FIFA 팀 가치는?
+/**
+ * 매직 넘비 그게 뭔데 씹덕아 싶은, 작성자만 아는 숫자는 상수화해라. 씹덕아.
+ * 이거 습관화해라 씹덕아. 하..
+ */
 public class BOJ29160 {
+    final static int NUMBER_OF_POSITIONS = 11;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -14,7 +22,7 @@ public class BOJ29160 {
         int k = Integer.parseInt(st.nextToken());
 
         // 최대 힙으로 구현
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++) {
             arr.add(new PriorityQueue<>(Collections.reverseOrder()));
         }
 
@@ -27,7 +35,7 @@ public class BOJ29160 {
         }
 
         // pq배열을 돌면서, 하나의 최대힙당 k번만큼 -1을 한다.
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++) {
             Queue<Integer> temp = arr.get(i);
             for (int j = 0; j < k; j++) {
                 if (!temp.isEmpty()) {
@@ -38,7 +46,7 @@ public class BOJ29160 {
         }
 
         int answer = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < NUMBER_OF_POSITIONS; i++) {
             Queue<Integer> temp = arr.get(i);
             if (!temp.isEmpty()) {
                 answer += temp.poll();
