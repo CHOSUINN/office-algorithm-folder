@@ -1,6 +1,9 @@
+package BOJ;
+
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
+// 체스판 칠하기
 public class BOJ1018 {
 
     static  char[][] arr;
@@ -24,6 +27,8 @@ public class BOJ1018 {
         for (int i = 0; i <= n - 8; i++)
             for (int j = 0; j <= m - 8; j++)
                 answer = Math.min(answer, checkChessCnt(i, j));
+
+        System.out.println(answer);
     }
 
     private static int checkChessCnt(int i, int j) {
@@ -34,17 +39,32 @@ public class BOJ1018 {
         char check = 'W';
         for (int a = 0; a < 8; a++) {
 
-            curr = (curr == 'W') ? 'B' : 'W';
 
             check = curr;
             for (int b = 0; b < 8; b++) {
-                if (check != arr[a][b])
+                if (check != arr[i + a][j + b]) {
                     cnt1++;
-                check = (check == 'W') ?
+                }
+                check = (check == 'W') ? 'B' : 'W';
             }
+            curr = (curr == 'W') ? 'B' : 'W';
         }
 
-
         // b로 시작할때의 개수
+        int cnt2 = 0;
+        curr = 'B';
+        check = 'B';
+        for (int a = 0; a < 8; a++) {
+
+            check = curr;
+            for (int b = 0; b < 8; b++) {
+                if (check != arr[i + a][j + b]) {
+                    cnt2++;
+                }
+                check = (check == 'W') ? 'B' : 'W';
+            }
+            curr = (curr == 'B') ? 'W' : 'B';
+        }
+        return Math.min(cnt1, cnt2);
     }
 }
