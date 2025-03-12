@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 // [모의 SW 역량테스트] 요리사
-
 /**
  * 설계
  * - 입력값을 2차원 배열에 저장한다.

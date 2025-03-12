@@ -1,26 +1,16 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 // 타노스는 요세푸스가 밉다
-class Node {
-    int animalNum;
-
-    public Node(int num) {
-        animalNum = num;
-    }
-}
-
-
 public class BOJ28066 {
 
     static int answer;
     static int n;
     static int k;
-    static List<Node> arr;
+    static boolean[] arr;
+    static int left;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -28,36 +18,24 @@ public class BOJ28066 {
 
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
-        arr = new ArrayList<>();
+        arr = new boolean[n + 1];
 
         for (int i = 1; i <= n; i++) {
-            arr.add(new Node(i));
+            arr[i] = true;
         }
 
-        f(0);
-        System.out.println(arr.get(0).animalNum);
-    }
+        left = n;
+        int index = 0;
+        while (left > 1) {
+            int ni = index + 1;
+            if (ni > n)
+                ni = 1;
+            while (true) {
 
+            }
 
-    private static void f(int idx) {
-        answer++;
-
-        if (arr.size() == 1)
-            return;
-
-        if (k - 1 > arr.size()) {
-            answer++;
-            return;
         }
 
-        for (int i = 0; i < k - 1; i++) {
-            arr.remove(idx + 1);
-        }
-
-        f(idx + 1);
-
-
-
-
+        System.out.println(answer);
     }
 }
