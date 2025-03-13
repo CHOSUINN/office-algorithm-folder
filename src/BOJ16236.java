@@ -16,7 +16,8 @@ public class BOJ16236 {
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
     static int[][] map;
-    static boolean[][] visited;
+//    static boolean[][] visited;
+    static int n;
 
     // 아기 상어의 위치
     static int[] babySharkLocation;
@@ -30,7 +31,7 @@ public class BOJ16236 {
         int babySharkSize = BABY_SHARK_SIZE_INIT;
         int fishConsumed = 0;
 
-        int n = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
         map = new int[n][n];
 
         // 아기 상어 위치
@@ -64,16 +65,16 @@ public class BOJ16236 {
             }
 
             // 섭취해야하는 생선의 개수가 충분하면, 아기상어의 크기만큼 섭취
-            for (int j = 0; j < babySharkSize; j++)
-                visited = new boolean[n][n];
-                moveBabyShark(babySharkLocation);
-
+            for (int j = 0; j < babySharkSize; j++) {
+                boolean[][] visited = new boolean[n][n];
+                moveBabyShark(babySharkLocation, visited);
+            }
         }
 
     }
 
     // 해당 위치까지 최소시간.
-    private static void moveBabyShark(int[] babySharkLocation) {
+    private static void moveBabyShark(int[] babySharkLocation, boolean[][] visited) {
         Queue<int[]> q = new ArrayDeque<>();
         int x = babySharkLocation[0];
         int y = babySharkLocation[1];
@@ -85,7 +86,10 @@ public class BOJ16236 {
                 int nx = x + dx[i];
                 int ny = y + dy[i];
 
+                if (nx < 0 || nx >= n) continue;
+                if (ny < 0 || ny >= n) continue;
 
+                q.offer(new int[]{nx, ny});
             }
 
 
