@@ -10,14 +10,14 @@ public class BOJ1697 {
 
     static boolean[] visited;
     static int answer;
+    static int k;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
         StringTokenizer st = new StringTokenizer(br.readLine()," ");
 
         int n = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
+        k = Integer.parseInt(st.nextToken());
 
         visited = new boolean[100_000];
 
@@ -38,6 +38,9 @@ public class BOJ1697 {
 
                 int temp = q.poll();
 
+                if (temp == k)
+                    break;
+
                 if (temp - 1 > 0 && temp - 1 < n && !visited[temp - 1])
                     q.offer(temp - 1);
 
@@ -48,6 +51,7 @@ public class BOJ1697 {
                     q.offer(temp * 2);
 
             }
+
             answer++;
 
         }
