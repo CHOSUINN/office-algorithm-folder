@@ -43,14 +43,20 @@ public class BOJ1697 {
                 if (temp == k)
                     return cnt;
 
-                if (temp - 1 > 0 && temp - 1 < MAX_BOOLEAN && !visit.contains(temp - 1))
+                if (temp - 1 >= 0 && temp - 1 < MAX_BOOLEAN && !visit.contains(temp - 1)) {
+                    visit.add(temp - 1);
                     q.offer(temp - 1);
+                }
 
-                if (temp + 1 > 0 && temp + 1 < MAX_BOOLEAN && !visit.contains(temp + 1))
+                if (temp + 1 >= 0 && temp + 1 < MAX_BOOLEAN && !visit.contains(temp + 1)) {
+                    visit.add(temp + 1);
                     q.offer(temp + 1);
+                }
 
-                if (temp * 2 > 0 && temp * 2 < MAX_BOOLEAN && !visit.contains(temp * 2))
+                if (temp * 2 >= 0 && temp * 2 < MAX_BOOLEAN && !visit.contains(temp * 2)) {
+                    visit.add(temp * 2);
                     q.offer(temp * 2);
+                }
 
             }
 
