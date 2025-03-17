@@ -1,14 +1,14 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayDeque;
-import java.util.Queue;
-import java.util.StringTokenizer;
+import java.util.*;
 
 // 숨바꼭질
 public class BOJ1697 {
 
-    static boolean[] visited;
+    static final int MAX_BOOLEAN = 100_001;
+//    static boolean[] visited;
+    static Set<Integer> visit;
     static int answer;
     static int k;
 
@@ -19,42 +19,45 @@ public class BOJ1697 {
         int n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
 
-        visited = new boolean[100_000];
+//        visited = new boolean[MAX_BOOLEAN];
+        visit = new HashSet<>();
 
-        bfs(n);
+        answer = bfs(n, 0);
         System.out.println(answer);
     }
 
-    private static void bfs(int n) {
+    private static int bfs(int n, int cnt) {
         Queue<Integer> q = new ArrayDeque<>();
 
         q.offer(n);
-        visited[n] = true;
-        int len = q.size();
-        answer = 1;
+//        visited[n] = true;
+        visit.add(n);
+
 
         while (!q.isEmpty()) {
+            int len = q.size();
             for (int i = 0; i < len; i++) {
 
                 int temp = q.poll();
 
                 if (temp == k)
-                    break;
+                    return cnt;
 
-                if (temp - 1 > 0 && temp - 1 < n && !visited[temp - 1])
+                if (temp - 1 > 0 && temp - 1 < MAX_BOOLEAN && !visit.contains(temp - 1))
                     q.offer(temp - 1);
 
-                if (temp + 1 > 0 && temp + 1 < n && !visited[temp + 1])
+                if (temp + 1 > 0 && temp + 1 < MAX_BOOLEAN && !visit.contains(temp + 1))
                     q.offer(temp + 1);
 
-                if (temp * 2 > 0 && temp * 2 < n && !visited[temp * 2])
+                if (temp * 2 > 0 && temp * 2 < MAX_BOOLEAN && !visit.contains(temp * 2))
                     q.offer(temp * 2);
 
             }
 
-            answer++;
+            cnt++;
 
         }
+        return cnt;
 
     }
 }
