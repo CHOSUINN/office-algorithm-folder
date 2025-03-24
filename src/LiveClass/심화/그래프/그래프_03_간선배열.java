@@ -1,7 +1,5 @@
 package LiveClass.심화.그래프;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class 그래프_03_간선배열 {
