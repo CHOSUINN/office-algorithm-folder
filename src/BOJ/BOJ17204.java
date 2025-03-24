@@ -1,3 +1,5 @@
+package BOJ;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +13,7 @@ public class BOJ17204 {
     static int k;
     static HashMap<Integer, Integer> hm;
     static int answer;
+    static boolean[] visited;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,6 +23,7 @@ public class BOJ17204 {
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
         hm = new HashMap<>();
+        visited = new boolean[n];
 
         for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine(), " ");
@@ -30,15 +34,25 @@ public class BOJ17204 {
         answer = 0;
         int cnt = 0;
         int nextNum = 0;
-        while (cnt > n) {
+        boolean flag = false;
+        while (cnt < n) {
+            if (visited[nextNum]) {
+                flag = true;
+                break;
+            }
+            visited[nextNum] = true;
             int nextPerson = hm.get(nextNum);
             answer++;
-            if (nextPerson == k) break;
             nextNum = nextPerson;
+            if (nextPerson == k){
+                flag = false;
+                break;
+            }
+
             cnt++;
         }
 
-        sb.append((answer == 0) ? -1 : answer);
+        sb.append((flag) ? -1 : answer);
         System.out.println(sb);
 
     }
