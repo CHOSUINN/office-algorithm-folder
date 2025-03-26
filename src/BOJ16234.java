@@ -42,19 +42,20 @@ public class BOJ16234 {
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (!visited[i][j]) {
-                    population(i, j);
-                    answer++;
+                    if (population(i, j) > 1)
+                        answer++;
+                    else
+                        visited[i][j] = false;
                 }
             }
         }
 
-        System.out.println(alliance.size());
+        System.out.println(answer);
     }
 
-    private static void population(int x, int y) {
+    private static int population(int x, int y) {
         Queue<int[]> q = new ArrayDeque<>();
         q.offer(new int[]{x, y});
-        int total = 0;
         int cnt = 1;
 
         while (!q.isEmpty()) {
@@ -62,23 +63,20 @@ public class BOJ16234 {
             int a = temp[0];
             int b = temp[1];
             visited[a][b] = true;
-            total += map[a][b];
 
             for (int d = 0; d < 4; d++) {
                 int na = a + dx[d];
                 int nb = b + dy[d];
 
                 if (na < 0 || na >= n || nb < 0 || nb >= n || visited[na][nb]) continue;
+
                 int diff = Math.abs(map[a][b] - map[na][nb]);
-                if (l > diff && r < diff) continue;
+                if (l > diff || r < diff) continue;
 
                 q.offer(new int[]{na, nb});
                 cnt++;
             }
         }
-
-        if (cnt > 1)
-            alliance.add(new int[]{total, cnt});
-
+        return cnt;
     }
 }
