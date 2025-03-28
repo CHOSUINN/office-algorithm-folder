@@ -9,12 +9,14 @@ public class BOJ16234 {
     // 상하좌우
     static int[] dx = {-1, 1, 0, 0};
     static int[] dy = {0, 0, -1, 1};
+
     static int n;
     static int l;
     static int r;
     static boolean[][] visited;
     static int[][] map;
-    static List<int[]> alliance = new ArrayList<>();
+    static int total = 0;
+    static int cnt = 0;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -33,19 +35,44 @@ public class BOJ16234 {
                 map[i][j] = Integer.parseInt(st.nextToken());
         }
 
-        // 완전 탐색으로 돌면서, 델타 탐색으로 경계를 허물것임.
-        // 단 visited를 통해 중복으로 벽을 허물지 않도록 할것임.
-        // 한번 칸을 허물러 들어갔다 나올때마다 각 칸의 값을 재정의 해준다. (연합 인구의 수)/칸의 개수
-        // List<int[]> 에 각 계산해야하는 연합의 총 인구수와, 칸의 개수를 int[]에 담아서 넣어준다.
-        // List.size()가 정답!
         int answer = 0;
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
-                if (!visited[i][j]) {
-                    if (population(i, j) > 1)
-                        answer++;
-                    else
-                        visited[i][j] = false;
+
+
+                for (int ii = 0; ii < n; ii++) {
+                    for (int jj = 0; jj < n; jj++) {
+                        // 연합의 칸 세기.
+                        total = 0;
+                        cnt = 0;
+                        if (!visited[ii][jj]) {
+                            // bfs하러 들어갔을때, 어디에도 인구이동을 하지 않는 경우 false반환
+                            boolean moved = checkPopulation(ii, jj);
+
+                            // 만약 인구이동이 일어났을 경우
+                            if (moved) {
+                                // 인구 이동 시킨 값 적용
+                                int temp = total / cnt;
+                                for (int iii = 0; iii < n; iii++) {
+                                    for (int jjj = 0; jjj < n; jjj++) {
+                                        if (visited[iii][jjj])
+                                            map[iii][jjj] = temp;
+                                    }
+                                }
+
+                                for (int x = 0; x < n; x++) {
+                                    for (int y = 0; y < n; y++) {
+                                        System.out.print(map[x][y] + " ");
+                                    }
+                                    System.out.println();
+                                }
+                                System.out.println("---------------");
+                                answer++;
+                            }
+                        }
+
+
+                    }
                 }
             }
         }
@@ -53,16 +80,18 @@ public class BOJ16234 {
         System.out.println(answer);
     }
 
-    private static int population(int x, int y) {
+    private static boolean checkPopulation(int x, int y) {
         Queue<int[]> q = new ArrayDeque<>();
         q.offer(new int[]{x, y});
-        int cnt = 1;
+        visited = new boolean[n][n];
 
         while (!q.isEmpty()) {
             int[] temp = q.poll();
             int a = temp[0];
             int b = temp[1];
             visited[a][b] = true;
+            total += map[a][b];
+            cnt += 1;
 
             for (int d = 0; d < 4; d++) {
                 int na = a + dx[d];
@@ -74,9 +103,8 @@ public class BOJ16234 {
                 if (l > diff || r < diff) continue;
 
                 q.offer(new int[]{na, nb});
-                cnt++;
             }
         }
-        return cnt;
+        return cnt != 1;
     }
 }
