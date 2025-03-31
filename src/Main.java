@@ -1,82 +1,83 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.*;
+import java.util.Scanner;
 
-// 인구 이동
-public class Main {
+public class Solution1_햄스터 {
+    static int T, N, M, X, max;
 
-    // 상하좌우
-    static int[] dx = {-1, 1, 0, 0};
-    static int[] dy = {0, 0, -1, 1};
-    static int n;
-    static int l;
-    static int r;
-    static boolean[][] visited;
-    static int[][] map;
-    static List<int[]> alliance = new ArrayList<>();
+    static class Recode {
+        int st, ed, sum;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine(), " ");
-        StringBuilder sb = new StringBuilder();
-
-        n = Integer.parseInt(st.nextToken());
-        l = Integer.parseInt(st.nextToken());
-        r = Integer.parseInt(st.nextToken());
-        map = new int[n][n];
-        visited = new boolean[n][n];
-
-        for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine(), " ");
-            for (int j = 0; j < n; j++)
-                map[i][j] = Integer.parseInt(st.nextToken());
+        public Recode(int st, int ed, int sum) {
+            this.st = st;
+            this.ed = ed;
+            this.sum = sum;
         }
-
-        // 완전 탐색으로 돌면서, 델타 탐색으로 경계를 허물것임.
-        // 단 visited를 통해 중복으로 벽을 허물지 않도록 할것임.
-        // 한번 칸을 허물러 들어갔다 나올때마다 각 칸의 값을 재정의 해준다. (연합 인구의 수)/칸의 개수
-        // List<int[]> 에 각 계산해야하는 연합의 총 인구수와, 칸의 개수를 int[]에 담아서 넣어준다.
-        // List.size()가 정답!
-        int answer = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (!visited[i][j]) {
-                    if (population(i, j) > 1)
-                        answer++;
-                    else
-                        visited[i][j] = false;
-                }
-            }
-        }
-
-        System.out.println(answer);
     }
 
-    private static int population(int x, int y) {
-        Queue<int[]> q = new ArrayDeque<>();
-        q.offer(new int[]{x, y});
-        int cnt = 1;
+    static Recode[] recodes;
+    static int[] cage;
+    static int[] ans;
 
-        while (!q.isEmpty()) {
-            int[] temp = q.poll();
-            int a = temp[0];
-            int b = temp[1];
-            visited[a][b] = true;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
 
-            for (int d = 0; d < 4; d++) {
-                int na = a + dx[d];
-                int nb = b + dy[d];
+        T = sc.nextInt();
+        for (int tc = 1; tc <= T; tc++) {
+            max = -1;
+            N = sc.nextInt();// 우리수
+            X = sc.nextInt();// 한 우리의 최대 X마리
+            M = sc.nextInt();// 기록 M개
+            recodes = new Recode[M];
+            cage = new int[N + 1];
+            ans = new int[N + 1];
 
-                if (na < 0 || na >= n || nb < 0 || nb >= n || visited[na][nb]) continue;
-
-                int diff = Math.abs(map[a][b] - map[na][nb]);
-                if (l > diff || r < diff) continue;
-
-                q.offer(new int[]{na, nb});
-                cnt++;
+            for (int i = 0; i < M; i++) {
+                int st = sc.nextInt();
+                int ed = sc.nextInt();
+                int sum = sc.nextInt();
+                recodes[i] = new Recode(st, ed, sum);
             }
+
+            DFS(1, 0);
+
+            StringBuilder sb = new StringBuilder();
+            sb.append("#").append(tc).append(" ");
+            if (max == -1) {
+                sb.append("-1");
+            } else {
+                for (int i = 1; i <= N; i++) {
+                    sb.append(ans[i]).append(" ");
+                }
+            }
+            System.out.println(sb);
         }
-        return cnt;
+
+    }
+
+    static void DFS(int idx, int cnt) {
+        if (idx > N) {
+
+            for (int i = 0; i < M; i++) {
+                Recode curr = recodes[i];
+                int tmp = 0;
+                for (int j = curr.st; j <= curr.ed; j++) {
+                    tmp += cage[j];
+                }
+                if (tmp != curr.sum) {
+                    return;
+                }
+            }
+            //갱신이 된다면 정답도 갱신
+            if (max < cnt) {
+                max = cnt;
+                for (int i = 1; i <= N; i++)
+                    ans[i] = cage[i];
+            }
+            return;
+        }
+
+        for (int i = 0; i <= X; i++) {
+            cage[idx] = i;
+            DFS(idx + 1, cnt + i);
+        }
     }
 }
