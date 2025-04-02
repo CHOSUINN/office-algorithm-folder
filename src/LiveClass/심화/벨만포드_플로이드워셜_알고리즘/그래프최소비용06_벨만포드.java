@@ -1,4 +1,4 @@
-package LiveClass.심화.벨만포드_알고리즘;
+package LiveClass.심화.벨만포드_플로이드워셜_알고리즘;
 
 
 // 간선을 전부 계속 순회하면서 완화시킨다.
