@@ -60,7 +60,6 @@ public class 그래프최소비용02_프림_반복문 {
                     p[j] = idx; //부모 정보 갱신
                 }
             }
-
         }
 
         System.out.println(answer);
