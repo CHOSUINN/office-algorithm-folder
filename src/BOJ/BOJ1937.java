@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-
 // 욕심쟁이 판다
 public class BOJ1937 {
 
